@@ -97,21 +97,20 @@ def rpy_to_rotation_matrix(roll, pitch, yaw):
 def display_image(img, boxes=None, labels=None, masks=None):
     # global colors
 
-    plt.figure(figsize=(20, 20))
+    plt.ion()  # Turn on interactive mode
+    plt.clf()  # Clear the current figure
+
     plt.imshow(img)
     if masks is not None:
         for mask in masks:
             _show_mask(mask, plt.gca(), random_color=True)
-    # if masks is not None:
-    #     for mask, label in zip(masks, labels):
-    #         if label.split(":")[0] not in colors:
-    #             colors[label.split(":")[0]] = np.concatenate([np.random.random(3), np.array([0.6])], axis=0)
-    #         _show_mask(mask, plt.gca(), random_color=False, color=colors[label.split(":")[0]])
     if boxes is not None and labels is not None:
         for box, label in zip(boxes, labels):
             _show_box(box, plt.gca(), label)
+    
     plt.axis("off")
-    plt.show()
+    plt.draw()  # Update the figure
+    plt.pause(0.001)
 
 
 # Funcitons used to savw the image with boxes
