@@ -4,18 +4,18 @@ import cv2
 
 
 class RS_D455:
-    def __init__(self, WH=[640, 480], depth_threshold=[0, 2]):
+    def __init__(self, serial_number, WH=[640, 480], depth_threshold=[0, 2], frame_rate=30):
         # Intialize the camera parameters
         self.WH = WH
         self.depth_threshold = depth_threshold
         # Initialize the realsense camera
         self.config = rs.config()
         # Specify the wrist camera serial number
-        self.serial_number = '246322303938'
+        self.serial_number = serial_number
         self.config.enable_device(self.serial_number)
         self.pipeline = rs.pipeline()
-        self.config.enable_stream(rs.stream.depth, WH[0], WH[1], rs.format.z16, 30)
-        self.config.enable_stream(rs.stream.color, WH[0], WH[1], rs.format.bgr8, 30)
+        self.config.enable_stream(rs.stream.depth, WH[0], WH[1], rs.format.z16, frame_rate)
+        self.config.enable_stream(rs.stream.color, WH[0], WH[1], rs.format.bgr8, frame_rate)
         profile = self.pipeline.start(self.config)
         # Skip 15 first frames to give the Auto-Exposure time to adjust
         for x in range(15):
