@@ -1,4 +1,4 @@
-from .env import RobotExplorationReal, RoboCalibrate
+from .env import RobotExplorationReal, RoboCalibrate, RS_D455
 from .perception import RoboPercept
 from .memory import RoboMemory
 from .act import RoboAct, RoboActReal
